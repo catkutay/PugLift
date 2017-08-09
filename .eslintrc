@@ -3,5 +3,15 @@
     "node": true
   },
   "extends": ["standard"],
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "rules": {
+    "comma-dangle": ["error", {
+      "arrays": "always",
+      "objects": "always",
+      "imports": "ignore",
+      "exports": "ignore",
+      "functions": "ignore"
+    }]
+  }
+
 }

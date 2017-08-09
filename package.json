@@ -22,6 +22,8 @@
     "uws": "^8.14.1"
   },
   "scripts": {
-    "start": "nodemon src/index.js --exec babel-node"
+    "start": "nodemon src/index.js --exec 'eslint src && babel-node'",
+    "lint": "eslint src",
+    "build": "babel src -d dist"
   }
 }

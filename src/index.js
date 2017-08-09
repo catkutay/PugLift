@@ -1,4 +1,4 @@
-const http = require('uws').http
+import { http } from 'uws'
 
 const document = Buffer.from('Hello world!')
 

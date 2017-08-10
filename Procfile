@@ -1,1 +1,1 @@
-web: yarn run deploy
+web: yarn && yarn run deploy

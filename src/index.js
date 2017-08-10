@@ -1,5 +1,6 @@
 import { http } from 'uws'
 
+const PORT = process.env.PORT || 3000
 const document = Buffer.from('Hello world!')
 
 const server = http.createServer((req, res) => {
@@ -19,4 +20,4 @@ const server = http.createServer((req, res) => {
   }
 })
 
-server.listen(3000)
+server.listen(PORT)

@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Big data analytics for advertising",
   "main": "src/index.js",
+  "engines": {
+    "node": "8.2.1"
+  },
   "repository": "https://stash.sds.feit.uts.edu.au/scm/pug/puglift.git",
   "author": "Alex Dacre <alex@alexdacre.com>, Riaan Van Onselen, Adam Fonfarski, Cattleya Tantri, Liu Tian Long",
   "license": "MIT",

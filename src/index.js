@@ -9,13 +9,13 @@ const server = http.createServer((req, res) => {
     req.on('data', (chunk) => {
       body.push(Buffer.from(chunk))
     }).on('end', () => {
-      res.end('You posted me this: ' + Buffer.concat(body).toString())
+      res.end(`You posted me this: ${Buffer.concat(body).toString()}`)
     })
     // handle some GET url
   } else if (req.url === '/') {
     res.end(document)
   } else {
-    res.end('Unknown request by: ' + req.headers['user-agent'])
+    res.end(`Unknown request by: ${req.headers['user-agent']}`)
   }
 })
 

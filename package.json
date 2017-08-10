@@ -2,8 +2,8 @@
   "name": "PubLift",
   "version": "0.0.1",
   "description": "Big data analytics for advertising",
-  "main": "index.js",
-  "repository": "https://alexd@stash.sds.feit.uts.edu.au/scm/pug/puglift.git",
+  "main": "src/index.js",
+  "repository": "https://stash.sds.feit.uts.edu.au/scm/pug/puglift.git",
   "author": "Alex Dacre <alex@alexdacre.com>, Riaan Van Onselen, Adam Fonfarski, Cattleya Tantri, Liu Tian Long",
   "license": "MIT",
   "devDependencies": {

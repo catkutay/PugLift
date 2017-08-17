@@ -10,6 +10,7 @@
   "author": "Alex Dacre <alex@alexdacre.com>, Riaan Van Onselen, Adam Fonfarski, Cattleya Tantri, Liu Tian Long",
   "license": "MIT",
   "devDependencies": {
+    "artillery": "^1.6.0-4",
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-preset-env": "^1.6.0",
@@ -25,12 +26,15 @@
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-preset-env": "^1.6.0",
-    "uws": "^8.14.1"
+    "primus": "^7.1.0",
+    "uws": "^8.14.1",
+    "ws": "^3.1.0"
   },
   "scripts": {
     "start": "nodemon src/index.js --exec 'eslint src && babel-node'",
     "lint": "eslint src",
     "build": "babel src -d dist",
-    "deploy": "babel src -d dist && node dist/index.js"
+    "deploy": "babel src -d dist && node dist/index.js",
+    "test": "artillery run src/test/artillery-primus-test.yml"
   }
 }

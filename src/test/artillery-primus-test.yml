@@ -2,7 +2,7 @@
     target: "ws://localhost:3000"
     phases:
       - duration: 10
-        arrivalRate: 30000
+        arrivalRate: 1000
     ws:
       # Ignore SSL certificate errors
       # - useful in *development* with self-signed certs

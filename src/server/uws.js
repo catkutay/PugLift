@@ -1,3 +1,6 @@
-import { http } from 'uws'
+import WebSocket from 'uws'
+import { PORT } from './routes'
 
-export default http
+const server = new WebSocket.Server({ port: PORT })
+
+export default server

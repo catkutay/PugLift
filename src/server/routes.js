@@ -15,4 +15,6 @@ const handleRoutes = (req, res) => {
   }
 }
 
+export const PORT = process.env.PORT || 3000
+
 export default handleRoutes

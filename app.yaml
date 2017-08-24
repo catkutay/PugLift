@@ -1,2 +1,8 @@
 env: flex
 runtime: nodejs
+network:
+  forwarded_ports:
+    - 65080/tcp
+resources:
+  cpu: 2
+  memory_gb: 1.8

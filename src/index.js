@@ -2,19 +2,21 @@ import rethinkdb, { connection } from './database/rethinkdb'
 import server from './server/uws'
 
 const home = Buffer.from('Hello world!')
-const reqs = Buffer.from('bid requests!')
-const results = Buffer.from('bid results!')
-const creative = Buffer.from('creative render!')
 
-const handlePageLoad = (data, socket) => {
-  const page = Buffer.from('page loaded!')
+const handleEvent = (data, socket) => {
+  const response = {
+    'page_load': Buffer.from('page loaded!'),
+    'bid_requests': Buffer.from('bid requests!'),
+    'bid_results': Buffer.from('bid results!'),
+    'creative_render': Buffer.from('creative render!'),
+  }
 
   rethinkdb.table('session')
-    .insert(data)
+    .insert(data.value)
     .run(connection)
     .then(result => {
-      console.log(JSON.stringify(result, null, 2))
-      socket.send(page)
+      // console.log(JSON.stringify(result, null, 2))
+      socket.send(response[data.type])
     })
     .catch(err => {
       throw err
@@ -23,12 +25,13 @@ const handlePageLoad = (data, socket) => {
 
 server.on('connection', ws => {
   ws.on('message', message => {
-    switch (message.type) {
+    const event = JSON.parse(message)
+    switch (event.type) {
       case '': return ws.send(home)
-      case 'page_load': return handlePageLoad(message.value)
-      case 'bid_requests': return ws.send(reqs)
-      case 'bid_results': return ws.send(results)
-      case 'creative_render': return ws.send(creative)
+      case 'page_load': return handleEvent(event, ws)
+      case 'bid_requests': return handleEvent(event, ws)
+      case 'bid_results': return handleEvent(event, ws)
+      case 'creative_render': return handleEvent(event, ws)
       default: ws.send(`Unknown request by: ${ws}`)
     }
   })

@@ -1,4 +1,6 @@
-const home = Buffer.from('Hello world!')
+import * as json from '../../package.json'
+
+const home = Buffer.from(`Running Publift Analytics v${json.version}`)
 const page = Buffer.from('page loaded!')
 const reqs = Buffer.from('bid requests!')
 const results = Buffer.from('bid results!')

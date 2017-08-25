@@ -1,7 +1,7 @@
 import WebSocket, { http } from 'uws'
-import handleRoutes, { PORT } from './routes'
+import handleRoutes from './routes'
 
-const httpServer = http.createServer(handleRoutes).listen(PORT)
-const server = new WebSocket.Server({ server: httpServer, port: 65080 })
+export const httpServer = http.createServer(handleRoutes)
+const server = new WebSocket.Server({ port: 65080 })
 
 export default server

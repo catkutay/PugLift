@@ -2,7 +2,8 @@ env: flex
 runtime: nodejs
 network:
   forwarded_ports:
-    - 65080/tcp
+    - 65080
+  instance_tag: websocket
 resources:
   cpu: 2
   memory_gb: 1.8

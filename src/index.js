@@ -1,7 +1,9 @@
 import rethinkdb, { connection } from './database/rethinkdb'
-import server from './server/uws'
+import server, { httpServer } from './server/uws'
+import { PORT } from './server/routes'
+import * as json from '../package.json'
 
-const home = Buffer.from('Hello world!')
+const home = Buffer.from(`Running Publift Analytics v${json.version}`)
 
 const handleEvent = (data, socket) => {
   const response = {
@@ -22,6 +24,8 @@ const handleEvent = (data, socket) => {
       throw err
     })
 }
+
+httpServer.listen(PORT)
 
 server.on('connection', ws => {
   ws.on('message', message => {

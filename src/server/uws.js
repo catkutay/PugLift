@@ -1,7 +1,17 @@
 import WebSocket, { http } from 'uws'
-import handleRoutes from './routes'
+import { PORT } from './routes'
 
-export const httpServer = http.createServer(handleRoutes)
-const server = new WebSocket.Server({ port: 65080 })
+const uws = routes => {
+  const httpServer = http.createServer(routes.handleRoutes)
+  const server = new WebSocket.Server({ port: 65080 })
 
-export default server
+  httpServer.listen(PORT)
+
+  server.on('connection', ws => routes.handleWebsocketRoutes(ws))
+
+  server.on('listening', () => {
+    console.info('PubLift Analytics server started and listening for connections')
+  })
+}
+
+export default uws

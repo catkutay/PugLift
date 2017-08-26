@@ -1,4 +1,5 @@
 import rethinkdb from 'rethinkdb'
+import { response } from '../server/routes'
 
 export let connection = null
 
@@ -25,5 +26,17 @@ rethinkdb.connect({ host: HOST, port: 28015 })
   .catch(error => {
     throw error
   })
+
+export function handleEvent (data, callback) {
+  rethinkdb.table('session')
+    .insert(data.value)
+    .run(connection)
+    .then(result => {
+      callback(response[data.type])
+    })
+    .catch(err => {
+      throw err
+    })
+}
 
 export default rethinkdb

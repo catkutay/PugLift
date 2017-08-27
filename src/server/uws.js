@@ -2,7 +2,7 @@ import WebSocket, { http } from 'uws'
 import { PORT } from './routes'
 
 const uws = routes => {
-  const httpServer = http.createServer(routes.handleRoutes)
+  const httpServer = http.createServer((req, res) => routes.handleRoutes(req, res))
   const server = new WebSocket.Server({ port: 65080 })
 
   httpServer.listen(PORT)

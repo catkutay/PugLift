@@ -5,5 +5,10 @@
         "node": 8
       }
     }]
-  ]
+  ],
+  "env": {
+    "production": {
+      "presets": ["minify"]
+    }
+  }
 }

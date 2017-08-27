@@ -19,20 +19,30 @@ or
 npm i
 ```
 
+From now on all commands will be written using `npm` however if you have installed yarn you can replace `npm` with `yarn`.
+
 ## DEVELOP
 
 To start developing simply type:
 
 ```
-yarn start
+npm run develop
 ```
 
 This automatically lints the files based on slightly modified __standard__ javascript rules. If you want to just lint you can run:
 
 ```
-yarn run lint
+npm run lint
+```
+
+## UPLOAD TO GCLOUD
+
+First you need to install the gcloud tool and follow the instructions to initialise it on your machine. Then simply run:
+
+```
+npm run deploy
 ```
 
 ## TEST THE SERVER
 
-To test the server you need to install [wrk](https://github.com/wg/wrk)
+To test the server you need to install [Gatling](http://gatling.io/) and download the other repository in this project.

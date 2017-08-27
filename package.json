@@ -13,6 +13,7 @@
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-minify": "^0.2.0",
     "colors": "^1.1.2",
     "eslint": "^4.4.1",
     "eslint-config-standard": "^10.2.1",
@@ -36,8 +37,8 @@
     "develop": "nodemon src/index.js --exec 'eslint src && babel-node'",
     "start": "node dist/index.js",
     "lint": "eslint src",
-    "build": "babel src -d dist",
-    "deploy": "babel src -d dist && gcloud app deploy",
+    "build": "eslint src && BABEL_ENV=production babel src -d dist",
+    "deploy": "eslint src && BABEL_ENV=production babel src -d dist && gcloud app deploy",
     "test": "artillery run src/test/artillery-primus-test.yml"
   }
 }

@@ -3,18 +3,29 @@ import * as json from '../../package.json'
 class Routes {
   constructor (handleEvent) {
     this.handleEvent = handleEvent
-    this.home = Buffer.from(`Running Publift Analytics v${json.version}`)
   }
 
   handleRoutes (req, res) {
-    console.log(req)
-    if (Object.keys(response).includes(req.url.substr(1))) {
-      return this.handleEvent(req, response => res.end(response))
-    } else if (req.url.substr(1) === '/') {
-      return res.end(this.home)
+    if (req.method === 'POST') {
+      let bodyData = ''
+      req.on('data', data => { bodyData += ab2str(data) })
+      req.on('end', () => {
+        const event = JSON.parse(bodyData)
+        if (Object.keys(response).includes(req.url.substr(1))) {
+          return this.handleEvent(event, response => res.end(response))
+        } else {
+          return res.end(`Unknown request by: ${req.headers['user-agent']}`)
+        }
+      })
     } else {
-      return res.end(`Unknown request by: ${req.headers['user-agent']}`)
+      if (req.url === '/') {
+        return res.end(Buffer.from(`Running Publift Analytics v${json.version}`))
+      } else {
+        return res.end(`404 - Unknown request by: ${req.headers['user-agent']}`)
+      }
     }
+
+    const ab2str = buf => String.fromCharCode.apply(null, new Uint8Array(buf))
   }
 
   handleWebsocketRoutes (ws) {

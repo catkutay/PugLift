@@ -6,7 +6,6 @@ class Routes {
   }
 
   handleRoutes (req, res) {
-    console.log(req.url, req)
     if (req.method === 'POST') {
       let bodyData = ''
       req.on('data', data => { bodyData += ab2str(data) })

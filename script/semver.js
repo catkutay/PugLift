@@ -5,14 +5,14 @@ const json = require('../package.json')
 
 require('colors')
 
-const now = json.version.split('.')
+const now = json.version.split(/[.-]/)
 const brch = branch.sync()
 
 let snapshot = null
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 })
 
 const result = () => {

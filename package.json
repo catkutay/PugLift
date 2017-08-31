@@ -1,10 +1,13 @@
 {
   "name": "PubLift",
-  "version": "0.0.1",
+  "version": "0.0.2-rc.4",
+  "config": {
+    "branch": "AD-0825-semver-deploys"
+  },
   "description": "Big data analytics for advertising",
   "main": "src/index.js",
   "engines": {
-    "node": "8.2.1"
+    "node": ">=8.2.1"
   },
   "repository": "https://stash.sds.feit.uts.edu.au/scm/pug/puglift.git",
   "author": "Alex Dacre <alex@alexdacre.com>, Riaan Van Onselen, Adam Fonfarski, Cattleya Tantri, Liu Tian Long",
@@ -23,7 +26,9 @@
     "eslint-plugin-standard": "^3.0.1",
     "git-branch": "^1.0.0",
     "lodash": "^4.17.4",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "replace-in-file": "^2.6.3",
+    "semver": "^5.4.1"
   },
   "dependencies": {
     "babel-cli": "^6.24.1",
@@ -37,8 +42,8 @@
     "develop": "nodemon src/index.js --exec 'eslint src && babel-node'",
     "start": "node dist/index.js",
     "lint": "eslint src",
-    "build": "eslint src && BABEL_ENV=production babel src -d dist",
-    "deploy": "eslint src && BABEL_ENV=production babel src -d dist && gcloud app deploy",
+    "build": "eslint src && BABEL_ENV=production babel src -d dist && node script/build.js",
+    "deploy": "eslint src && BABEL_ENV=production babel src -d dist && node script/build.js gcloud app deploy",
     "test": "artillery run src/test/artillery-primus-test.yml"
   }
 }

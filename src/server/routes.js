@@ -1,4 +1,4 @@
-import * as json from '../../package.json'
+import * as pkg from '../../package.json'
 
 class Routes {
   constructor (handleEvent) {
@@ -19,7 +19,11 @@ class Routes {
       })
     } else {
       if (req.url === '/') {
-        return res.end(Buffer.from(`Running Publift Analytics v${json.version}`))
+        return res.end(
+          Buffer.from(
+            `Running Publift Analytics v${pkg.version}${pkg.config.branch === 'master' ? '' : ' from branch ' + pkg.config.branch}`
+          )
+        )
       } else {
         return res.end(`404 - Unknown request by: ${req.headers['user-agent']}`)
       }

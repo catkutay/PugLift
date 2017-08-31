@@ -38,7 +38,7 @@ answer => {
 const updateVersion = callback => {
   if (brch === 'master') {
     if (semver.prerelease(pkg.version)) {
-      callback(semver.inc(pkg.version))
+      callback(semver.inc(pkg.version, 'patch'))
     } else {
       console.log(`\nYou are on the master branch.\n * If you need to make changes to your code, please move to a new branch`.warn)
       callback(pkg.version)

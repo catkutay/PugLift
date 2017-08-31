@@ -1,8 +1,8 @@
 {
   "name": "PubLift",
-  "version": "0.0.2-rc.4",
+  "version": "0.0.2",
   "config": {
-    "branch": "AD-0825-semver-deploys"
+    "branch": "master"
   },
   "description": "Big data analytics for advertising",
   "main": "src/index.js",

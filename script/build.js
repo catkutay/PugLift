@@ -57,7 +57,7 @@ const updateVersionAndBranch = version => {
     files: './package.json',
     from: [/("version":) ".*"/, /("branch":) ".*"/],
     to: [`$1 "${version}"`, `$1 "${brch}"`],
-  }).then(file => console.log('\nReady to publish Publift Analytics.\n'.info))
+  }).then(file => console.log(`\nReady to publish Publift Analytics v${version} from branch ${brch}\n`.info))
 }
 
 const updatePkg = () => {

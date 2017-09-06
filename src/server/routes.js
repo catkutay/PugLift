@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import * as pkg from '../../package.json'
 
 class Routes {
@@ -24,8 +26,15 @@ class Routes {
             `Running Publift Analytics v${pkg.version}${pkg.config.branch === 'master' ? '' : ' from branch ' + pkg.config.branch}`
           )
         )
+      } else if (req.url === '/loaderio-af0883d94320b9a9907450652cbd426c') {
+        res.writeHead(200, {
+          'Content-Type': 'text/plain',
+        })
+
+        const readStream = fs.createReadStream(path.join(__dirname, '/public/verification_file'))
+        return readStream.pipe(res)
       } else {
-        return res.end(`404 - Unknown request by: ${req.headers['user-agent']}`)
+        return res.end(Buffer.from(`404 - Unknown request by: ${req.headers['user-agent']}`))
       }
     }
 

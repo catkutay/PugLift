@@ -1,8 +1,8 @@
 {
   "name": "PubLift",
-  "version": "0.0.2",
+  "version": "0.0.3-rc.8",
   "config": {
-    "branch": "master"
+    "branch": "AD-0904-gcloud-cluster-alternative"
   },
   "description": "Big data analytics for advertising",
   "main": "src/index.js",
@@ -42,7 +42,7 @@
     "start": "node dist/index.js",
     "lint": "eslint src",
     "build": "eslint src && BABEL_ENV=production babel src -d dist && node script/build.js",
-    "deploy": "eslint src && BABEL_ENV=production babel src -d dist && node script/build.js gcloud app deploy",
+    "deploy": "eslint src && BABEL_ENV=production babel src -d dist && node script/build.js && gcloud app deploy",
     "test": "artillery run src/test/artillery-primus-test.yml"
   }
 }

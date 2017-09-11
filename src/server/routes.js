@@ -24,6 +24,9 @@ class Routes {
             `Running Publift Analytics v${pkg.version}${pkg.config.branch === 'master' ? '' : ' from branch ' + pkg.config.branch}`
           )
         )
+      } else if (req.url.match(/$\/api/)) {
+        callApiIndex(req, res)
+      }
       } else {
         return res.end(`404 - Unknown request by: ${req.headers['user-agent']}`)
       }

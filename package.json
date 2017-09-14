@@ -1,6 +1,6 @@
 {
   "name": "PubLift",
-  "version": "0.0.3-rc.8",
+  "version": "0.0.3-rc.9",
   "config": {
     "branch": "AD-0904-gcloud-cluster-alternative"
   },

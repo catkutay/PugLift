@@ -1,4 +1,0 @@
-DB_HOST = localhost
-DB_POST = 28015
-DB_NAME = express_example
-TOKEN_SECRET = mysupersecretstring

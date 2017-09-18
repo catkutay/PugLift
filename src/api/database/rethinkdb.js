@@ -4,7 +4,8 @@ console.log(connection)
 
 class rethinkQueries {
   eventsForTimePeriod(timeMin, timeMax) {
-    
+
+
   }
 }
 

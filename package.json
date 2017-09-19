@@ -42,7 +42,7 @@
     "start": "node dist/index.js",
     "lint": "eslint src",
     "build": "eslint src && BABEL_ENV=production babel src -d dist && node script/build.js",
-    "deploy": "eslint src && BABEL_ENV=production babel src -d dist && node script/build.js gcloud app deploy",
+    "deploy": "eslint src && BABEL_ENV=production babel src -d dist && node script/build.js && gcloud app deploy",
     "test": "artillery run src/test/artillery-primus-test.yml"
   }
 }

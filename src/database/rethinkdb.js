@@ -9,7 +9,7 @@ const createDatabase = conn => {
   rethinkdb.dbList()
     .contains('publift')
     .do(exists => rethinkdb.branch(exists, {databases_created: 0}, rethinkdb.dbCreate('publift')))
-    .run(conn).then(createTables(conn))
+    .run(conn).then(() => createTables(conn))
 }
 
 const createTables = conn => {

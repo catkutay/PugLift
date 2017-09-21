@@ -48,8 +48,11 @@ export const PORT = process.env.PORT || 3000
 
 export const response = {
   'page_load': Buffer.from('page loaded!'),
-  'bid_requests': Buffer.from('bid requests!'),
-  'bid_results': Buffer.from('bid results!'),
+  'bid_request': Buffer.from('bid requested!'),
+  'bid_response': Buffer.from('bid result!'),
+  'ad_request': Buffer.from('ad requested!'),
+  'ad_response': Buffer.from('ad result!'),
+  'ad_view': Buffer.from('ad viewed!'),
   'creative_render': Buffer.from('creative render!'),
 }
 

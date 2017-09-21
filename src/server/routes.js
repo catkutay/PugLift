@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import * as pkg from '../../package.json'
 
 class Routes {
@@ -6,6 +8,17 @@ class Routes {
   }
 
   handleRoutes (req, res) {
+    // if (req.url === '/') {
+    //   return res.end(
+    //     Buffer.from(
+    //       `Running Publift Analytics v${pkg.version}${pkg.config.branch === 'master' ? '' : ' from branch ' + pkg.config.branch}`
+    //     )
+    //   )
+    // } else {
+    //   res.statusCode = 200
+    //   return res.end('success')
+    // }
+
     if (req.method === 'POST') {
       let bodyData = ''
       req.on('data', data => { bodyData += ab2str(data) })
@@ -24,32 +37,42 @@ class Routes {
             `Running Publift Analytics v${pkg.version}${pkg.config.branch === 'master' ? '' : ' from branch ' + pkg.config.branch}`
           )
         )
+      } else if (req.url === '/loaderio-af0883d94320b9a9907450652cbd426c') {
+        res.writeHead(200, {
+          'Content-Type': 'text/plain',
+        })
+
+        const readStream = fs.createReadStream(path.join(__dirname, '/public/verification_file'))
+        return readStream.pipe(res)
       } else {
-        return res.end(`404 - Unknown request by: ${req.headers['user-agent']}`)
+        return res.end(Buffer.from(`404 - Unknown request by: ${req.headers['user-agent']}`))
       }
     }
 
     const ab2str = buf => String.fromCharCode.apply(null, new Uint8Array(buf))
   }
 
-  handleWebsocketRoutes (ws) {
-    ws.on('message', message => {
-      const event = JSON.parse(message)
-      if (Object.keys(response).includes(event.type)) {
-        return this.handleEvent(event, response => ws.send(response))
-      } else {
-        return ws.send(`Unknown request by: ${ws}`)
-      }
-    })
-  }
+  // handleWebsocketRoutes (ws) {
+  //   ws.on('message', message => {
+  //     const event = JSON.parse(message)
+  //     if (Object.keys(response).includes(event.type)) {
+  //       return this.handleEvent(event, response => ws.send(response))
+  //     } else {
+  //       return ws.send(`Unknown request by: ${ws}`)
+  //     }
+  //   })
+  // }
 }
 
 export const PORT = process.env.PORT || 3000
 
 export const response = {
   'page_load': Buffer.from('page loaded!'),
-  'bid_requests': Buffer.from('bid requests!'),
-  'bid_results': Buffer.from('bid results!'),
+  'bid_request': Buffer.from('bid requested!'),
+  'bid_response': Buffer.from('bid result!'),
+  'ad_request': Buffer.from('ad requested!'),
+  'ad_response': Buffer.from('ad result!'),
+  'ad_view': Buffer.from('ad viewed!'),
   'creative_render': Buffer.from('creative render!'),
 }
 

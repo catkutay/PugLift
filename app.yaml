@@ -5,5 +5,7 @@ network:
     - 65080
   instance_tag: websocket
 resources:
-  cpu: 2
-  memory_gb: 1.8
+  cpu: 1
+  memory_gb: 1
+automatic_scaling:
+  min_num_instances: 4

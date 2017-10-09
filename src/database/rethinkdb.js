@@ -41,7 +41,7 @@ const createTables = conn => {
 rethinkdb.connect({ host: HOST, port: 28015 })
   .then(createDatabase)
   .catch(error => {
-    throw error
+    throw logger.error(error)
   })
 
 export function handleEvent (data, callback, uniqueID) {

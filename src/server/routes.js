@@ -1,6 +1,6 @@
-import fs from 'fs'
-import path from 'path'
 import * as pkg from '../../package.json'
+import { profileLogger, enableProfilling } from '../winstonconfig'
+// import { logger } from '../winstonconfig'
 
 class Routes {
   constructor (handleEvent) {
@@ -25,7 +25,9 @@ class Routes {
       req.on('end', () => {
         const event = JSON.parse(bodyData)
         if (Object.keys(response).includes(req.url.substr(1))) {
-          return this.handleEvent(event, response => res.end(response))
+          const uniqueID = (process.hrtime()[1]) // creating a uniqueID using nanoseconds.
+          if (enableProfilling) { profileLogger.profile(uniqueID) } // start timer with uniqueID
+          return this.handleEvent(event, response => res.end(response), uniqueID) // return data for database insertion
         } else {
           return res.end(`Unknown request by: ${req.headers['user-agent']}`)
         }
@@ -37,18 +39,10 @@ class Routes {
             `Running Publift Analytics v${pkg.version}${pkg.config.branch === 'master' ? '' : ' from branch ' + pkg.config.branch}`
           )
         )
-      } else if (req.url === '/loaderio-af0883d94320b9a9907450652cbd426c') {
-        res.writeHead(200, {
-          'Content-Type': 'text/plain',
-        })
-
-        const readStream = fs.createReadStream(path.join(__dirname, '/public/verification_file'))
-        return readStream.pipe(res)
       } else {
         return res.end(Buffer.from(`404 - Unknown request by: ${req.headers['user-agent']}`))
       }
     }
-
     const ab2str = buf => String.fromCharCode.apply(null, new Uint8Array(buf))
   }
 

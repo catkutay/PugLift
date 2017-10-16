@@ -1,6 +1,6 @@
 {
   "name": "PubLift",
-  "version": "0.0.4-rc.2",
+  "version": "0.0.4-rc.3",
   "config": {
     "branch": "KP-0925-winston-logging"
   },

@@ -1,7 +1,7 @@
 import { response } from '../server/routes'
 import { MongoClient } from 'mongodb'
 
-const HOST = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? 'TBD' : 'localhost'
+const HOST = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? '10.152.0.11' : 'localhost'
 const url = `mongodb://${HOST}:27017/publift`
 const mongo = new MongoClient()
 let conn = null

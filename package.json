@@ -1,6 +1,6 @@
 {
   "name": "PubLift",
-  "version": "0.0.4-rc.1",
+  "version": "0.0.4-rc.3",
   "config": {
     "branch": "KP-1016-MongoDBnew"
   },

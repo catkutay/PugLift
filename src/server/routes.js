@@ -24,7 +24,7 @@ class Routes {
       req.on('data', data => { bodyData += ab2str(data) })
       req.on('end', () => {
         const event = JSON.parse(bodyData)
-        if (Object.keys(response).includes(req.url.substr(1))) {
+        if (Object.keys(response).includes(req.url.substr(1)) && Object.keys(response).includes(event.type)) {
           return this.handleEvent(event, response => res.end(response))
         } else {
           return res.end(`Unknown request by: ${req.headers['user-agent']}`)

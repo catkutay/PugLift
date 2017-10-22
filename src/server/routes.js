@@ -21,7 +21,10 @@ class Routes {
 
     if (req.method === 'POST') {
       let bodyData = ''
-      req.on('data', data => { bodyData += ab2str(data) })
+      req.on('data', data => {
+        bodyData += ab2str(data)
+        bodyData = bodyData.replace(/(['"])(\$[\w]*)(['"]:)/g, '$1a$2$3') // catch invalid keys starting with '$' and add 'a' as prefix: '$key' -> 'a$key'
+      })
       req.on('end', () => {
         const event = JSON.parse(bodyData)
         if (Object.keys(response).includes(req.url.substr(1)) && Object.keys(response).includes(event.type)) {

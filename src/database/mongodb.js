@@ -13,6 +13,10 @@ mongo.connect(url, (err, db) => {
 
 export function handleEvent (data, callback) {
   const collection = conn.collection(data.type)
-  collection.insertOne(data.value)
+  if (Array.isArray(data.value)) {
+    collection.insertMany(data.value) // allow for the insertion of arrays of JSON (specifically for ad_request)
+  } else {
+    collection.insertOne(data.value)
+  }
   callback(response[data.type])
 }

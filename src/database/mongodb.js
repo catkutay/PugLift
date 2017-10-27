@@ -14,5 +14,5 @@ mongo.connect(url, (err, db) => {
 export function handleEvent (data, callback) {
   const collection = conn.collection(data.type)
   collection.insertOne(data.value)
-  callback(response[data.type])
+  callback(response[data.type], ` ${data.value.user_id}`)
 }

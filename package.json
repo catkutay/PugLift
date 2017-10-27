@@ -2,7 +2,10 @@
   "name": "PubLift",
   "version": "0.0.4-rc.3",
   "config": {
+<<<<<<< HEAD
     "branch": "KP-1016-MongoDBnew"
+=======
+    "branch": "KP-0925-winston-logging"
   },
   "description": "Big data analytics for advertising",
   "main": "src/index.js",
@@ -10,7 +13,7 @@
     "node": ">=8.2.1"
   },
   "repository": "https://stash.sds.feit.uts.edu.au/scm/pug/puglift.git",
-  "author": "Alex Dacre <alex@alexdacre.com>, Riaan Van Onselen, Adam Fonfarski, Cattleya Tantri, Liu Tian Long",
+  "author": "Alex Dacre <alex@alexdacre.com>, Riaan Van Onselen, Adam Fonfarski, Cattleya Tantri, Liu Tian Long, Kory Porter",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -36,8 +39,13 @@
     "moment": "^2.19.1",
     "mongodb": "^2.2.31",
     "rethinkdb": "^2.3.3",
+<<<<<<< HEAD
     "uuid": "^3.1.0",
     "uws": "^8.14.1"
+=======
+    "uws": "^8.14.1",
+    "winston": "^2.3.1"
+>>>>>>> origin/KP-0925-winston-logging
   },
   "scripts": {
     "develop": "nodemon src/index.js --exec \"eslint src && babel-node\"",

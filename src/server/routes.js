@@ -31,6 +31,10 @@ class Routes {
         }
         if (Object.keys(response).includes(req.url.substr(1)) && Object.keys(response).includes(event.type)) {
           return this.handleEvent(event, (response, userid) => res.end(response + userid))
+        if (Object.keys(response).includes(req.url.substr(1))) {
+          const uniqueID = (process.hrtime()[1]) // creating a uniqueID using nanoseconds.
+          if (enableProfilling) { profileLogger.profile(uniqueID) } // start timer with uniqueID
+          return this.handleEvent(event, response => res.end(response), uniqueID) // return data for database insertion
         } else {
           return res.end(`Unknown request by: ${req.headers['user-agent']}`)
         }
@@ -48,7 +52,6 @@ class Routes {
         return res.end(Buffer.from(`404 - Unknown request by: ${req.headers['user-agent']}`))
       }
     }
-
     const ab2str = buf => String.fromCharCode.apply(null, new Uint8Array(buf))
   }
 

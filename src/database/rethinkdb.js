@@ -1,5 +1,6 @@
 import rethinkdb from 'rethinkdb'
 import { response } from '../server/routes'
+import { logger, profileLogger, enableProfilling } from '../winstonconfig'
 
 export let connection = null
 
@@ -12,6 +13,7 @@ const tables = [
   'ad_request',
   'ad_response',
   'ad_view',
+  'creative_render',
 ]
 
 const createDatabase = conn => {
@@ -39,20 +41,21 @@ const createTables = conn => {
 rethinkdb.connect({ host: HOST, port: 28015 })
   .then(createDatabase)
   .catch(error => {
-    throw error
+    throw logger.error(error)
   })
 
-export function handleEvent (data, callback) {
-  // convert timestamps to date objects
-  data.timestamp = rethinkdb.epochTime(data.timestamp)
-  rethinkdb.table(data.event_label)
+export function handleEvent (data, callback, uniqueID) {
+  //  convert timestamps to date objects
+  //  data.timestamp = rethinkdb.epochTime(data.timestamp)
+  rethinkdb.table(data.type)
     .insert(data)
     .run(connection)
     .then(result => {
       callback(response[data.type])
+      if (enableProfilling) { profileLogger.profile(uniqueID, `${uniqueID}: ` + data.type) } // Checks to see if enableProfilling is true and if true, finish logging for that particular event.
     })
     .catch(err => {
-      throw err
+      throw logger.error(err)
     })
 }
 

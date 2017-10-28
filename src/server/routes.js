@@ -1,6 +1,7 @@
 import moment from 'moment'
 import uuidv5 from 'uuid/v5'
 import * as pkg from '../../package.json'
+import { profileLogger, enableProfiling, consoleloggingLevel, fileLoggingLevel, setProfiling } from '../winstonconfig'
 
 class Routes {
   constructor (handleEvent) {
@@ -25,16 +26,18 @@ class Routes {
       req.on('end', () => {
         const event = JSON.parse(bodyData)
         const eventUserID = event.value.user_id
-        if (['0', null, 0, 'undefined'].includes(eventUserID)) {
+        if (['0', null, 0, 'undefined', ' ', ''].includes(eventUserID)) {
           let newUserID = uuidv5(moment().format('Y-MM-DD HH:mm:SSSSSS'), 'ddb8d97f-f9b2-4a9c-a77c-b08689136db8') //  creates a v5 uuid using date, hour, minute, and nano seconds
           event.value.user_id = `${newUserID}`
         }
         if (Object.keys(response).includes(req.url.substr(1)) && Object.keys(response).includes(event.type)) {
-          return this.handleEvent(event, (response, userid) => res.end(response + userid))
-        if (Object.keys(response).includes(req.url.substr(1))) {
-          const uniqueID = (process.hrtime()[1]) // creating a uniqueID using nanoseconds.
-          if (enableProfilling) { profileLogger.profile(uniqueID) } // start timer with uniqueID
-          return this.handleEvent(event, response => res.end(response), uniqueID) // return data for database insertion
+          if (enableProfiling) {
+            const profilingID = (process.hrtime()[1]) // creating a unique ID for profilling purposes using nanoseconds.
+            profileLogger.profile(profilingID) // start timer with unique profilling ID
+            return this.handleEvent(event, profilingID, (response, userid) => res.end(response + userid))
+          } else {
+            return this.handleEvent(event, null, (response, userid) => res.end(response + userid))
+          }
         } else {
           return res.end(`Unknown request by: ${req.headers['user-agent']}`)
         }
@@ -47,7 +50,23 @@ class Routes {
           )
         )
       } else if (req.url === '/loggersettings') {
-        return res.end('this worked.')
+        let profileResult = ''
+        if (enableProfiling) {
+          profileResult = 'enabled'
+        } else {
+          profileResult = 'disabled'
+        }
+        res.writeHead(200, { 'Content-Type': 'text/plain' })
+        res.write('Current console logging level is: ' + consoleloggingLevel + '\n')
+        res.write('Current file logging level is: ' + fileLoggingLevel + '\n')
+        res.write('Profilling status: ' + profileResult + '\n' + '\n')
+        res.end()
+      } else if (req.url === '/loggersettings/profiling/on') {
+        setProfiling(true)
+        res.end('Profiling has been turned on, all legitimate event requests will be logged to the winston-profile-events.log file')
+      } else if (req.url === '/loggersettings/profiling/off') {
+        setProfiling(false)
+        res.end('Profiling has been turned off')
       } else {
         return res.end(Buffer.from(`404 - Unknown request by: ${req.headers['user-agent']}`))
       }

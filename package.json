@@ -2,10 +2,7 @@
   "name": "PubLift",
   "version": "0.0.4-rc.3",
   "config": {
-<<<<<<< HEAD
     "branch": "KP-1016-MongoDBnew"
-=======
-    "branch": "KP-0925-winston-logging"
   },
   "description": "Big data analytics for advertising",
   "main": "src/index.js",
@@ -39,13 +36,9 @@
     "moment": "^2.19.1",
     "mongodb": "^2.2.31",
     "rethinkdb": "^2.3.3",
-<<<<<<< HEAD
     "uuid": "^3.1.0",
-    "uws": "^8.14.1"
-=======
     "uws": "^8.14.1",
     "winston": "^2.3.1"
->>>>>>> origin/KP-0925-winston-logging
   },
   "scripts": {
     "develop": "nodemon src/index.js --exec \"eslint src && babel-node\"",

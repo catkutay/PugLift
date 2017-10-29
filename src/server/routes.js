@@ -57,9 +57,17 @@ class Routes {
 
     const safeParse = data => {
       try {
-        return JSON.parse(data.replace(/(['"])(\$[\w]*)(['"]:)/g, '$1a$2$3')) // before parsing, catch invalid keys starting with '$' and add 'a' as prefix: '$key' -> 'a$key'
+        return JSON.parse(
+          data
+            // catch invalid keys or potential MongoDB query operators starting with '$' and add 'a' as prefix: '$where' -> 'a$where'; [$where] -> [a$where]; " $where " -> " a$where "
+            .replace(/(['"[][\s]*)(\$[\w]*)([\s]*['"\]])/g, '$1a$2$3')
+            // catch invalid keys containing a dot (.) and replace with a hyphen (-): 'test.key' -> 'test-key'
+            // Note: does not handle multiple scattered dots within one key, e.g. 'an.example.key'
+            .replace(/(['"][\s]*[\w]*)(\.+)([\w]*[\s]*['"]:)/g, '$1-$3')
+            // catch null bytes and replace with string 'none': 'example\u0000' -> 'examplenone'
+            .replace(/\u0000|\\u0000/g, 'none')
+        )
       } catch (err) {
-        // console.error(err)
         return null
       }
     }

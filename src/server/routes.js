@@ -50,16 +50,10 @@ class Routes {
           )
         )
       } else if (req.url === '/loggersettings') {
-        let profileResult = ''
-        if (enableProfiling) {
-          profileResult = 'enabled'
-        } else {
-          profileResult = 'disabled'
-        }
         res.writeHead(200, { 'Content-Type': 'text/plain' })
         res.write('Current console logging level is: ' + consoleloggingLevel + '\n')
         res.write('Current file logging level is: ' + fileLoggingLevel + '\n')
-        res.write('Profilling status: ' + profileResult + '\n' + '\n')
+        res.write('Profilling enabled: ' + enableProfiling + '\n' + '\n')
         res.end()
       } else if (req.url === '/loggersettings/profiling/on') {
         setProfiling(true)

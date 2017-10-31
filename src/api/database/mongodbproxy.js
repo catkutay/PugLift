@@ -12,12 +12,7 @@ mongo.connect(url, (err, db) => {
 })
 
 export function getTotal (table, filters, callback) {
-  /*
-  var filter = {}
-  for (var i = 0, len = filters.length; i < len; i++) {
-    filter[filters[i].type] = filters[i].value
-  }
-  */
+  console.log('filters query: ' + JSON.stringify(filters))
   const collection = conn.collection(table)
   collection.find(filters).count(function (err, result) {
     if (err) throw err
@@ -27,12 +22,6 @@ export function getTotal (table, filters, callback) {
 }
 
 export function getList (table, filters, callback) {
-  /*
-  var filter = {}
-  for (var i = 0, len = filters.length; i < len; i++) {
-    filter[filters[i].type] = filters[i].value
-  }
-  */
   const collection = conn.collection(table)
   collection.find(filters).toArray(function (err, result) {
     if (err) throw err

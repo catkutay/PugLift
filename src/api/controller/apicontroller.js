@@ -23,19 +23,25 @@ var filterMatches = [
   'user_id',
   'event_type',
   'date',
+  'date_range',
   'session',
 ]
 
-/*
-function validateParameter (str, arr) {
-  for (var i = 0, len = arr.length; i < len; i++) {
-    if (str === arr[i]) {
-      return true
-    }
+const dateRegex = new RegExp('(^(((0[1-9]|1[0-9]|2[0-8])[/](0[1-9]|1[012]))|' +
+'((29|30|31)[/](0[13578]|1[02]))|((29|30)[/](0[4,6,9]|11)))[/](19|[2-9][0-9]' +
+')\\d\\d$)|(^29[/]02[/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|' +
+'48|52|56|60|64|68|72|76|80|84|88|92|96)$)')
+
+function getDate (str, callback) {
+  if (dateRegex.exec(str) !== null) {
+    var split = str.split('/')
+    var date = split[2] + '-' + split[1] + '-' + split[0]
+    return date
+  } else {
+    callback(null, 'ERROR: Wrong date format "' + str + '" - Results un-filtered!')
+    return null
   }
-  return false
 }
-*/
 
 function getFilters (queryFilters, callback) {
   queryFilters.shift()
@@ -44,18 +50,43 @@ function getFilters (queryFilters, callback) {
   var filters = {}
   for (var i = 0, len = queryFilters.length; i < len; i++) {
     var s = queryFilters[i].split('=')
-    var o = {
-      type: (function () {
-        if (!filterMatches.includes(s[0])) {
-          callback(null, 'ERROR: Unidentified filter "' + s[0] + '" - Results un-filtered!')
+    var type = (function () {
+      if (!filterMatches.includes(s[0])) {
+        callback(null, 'ERROR: Unidentified filter "' + s[0] + '" - Results un-filtered!')
+      } else {
+        return s[0]
+      }
+    }())
+    var value = (function () {
+      if (type === 'date_range') {
+        var dates = s[1].split('-')
+        if (dates.length !== 2) {
+          callback(null, 'ERROR: Date range expected (2) entries, but got (' + dates.length + ') - Results un-filtered!')
         } else {
-          return s[0]
+          var sDateRange = new Date(getDate(dates[0]) + 'T00:00:00.000Z').toISOString()
+          var eDateRange = new Date(getDate(dates[1]) + 'T23:59:59.999Z').toISOString()
+          var dateRangeObj = {
+            '$gte': sDateRange,
+            '$lt': eDateRange,
+          }
+          type = 'date'
+          return dateRangeObj
         }
-      }()),
-      value: s[1] === undefined || s[1] === null ? '' : s[1].replace(/%20/, ' '),
-    }
-    // filters.push(o)
-    filters[o.type] = o.value
+      } else if (type === 'date') {
+        var dateSingle = getDate(s[1], callback)
+        var sDateSingle = new Date(dateSingle + 'T00:00:00.000Z').toISOString()
+        var eDateSingle = new Date(dateSingle + 'T23:59:59.999Z').toISOString()
+        var dateObj = {
+          '$gte': sDateSingle,
+          '$lt': eDateSingle,
+        }
+        console.log('date: ' + JSON.stringify(dateObj))
+        return dateObj
+      } else {
+        return s[1] === undefined || s[1] === null ? '' : s[1].replace(/%20/, ' ')
+      }
+    }())
+    filters[type] = value
   }
   callback(filters, null)
 }
@@ -64,12 +95,6 @@ function handleAPIQuery (req, res) {
   var url = req.url
 
   if (url.match(/events\?/)) {
-  // url/api/events/event_name/query_type/optional_filter
-  // url/api/events/&event=page_load&type=total_by_user&filter:date=1/7/17-1/12/17
-  // get filters - date &filter=??
-  // date ranges 1/2/17 - 1/7/17
-  // Time to date : From date till now
-  // Today
     handleEventQuery(url, res)
   } else {
     res.end('Unidentified query')
@@ -132,6 +157,9 @@ function handleEventQuery (url, res) {
         queryFilters = filters
       }
     })
+    if (queryFilters === null) {
+      return
+    }
   }
 
   switch (queryType) {

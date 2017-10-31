@@ -1,3 +1,4 @@
+/*
 import rethinkdb from '../../database/rethinkdb'
 
 const HOST = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? '10.152.0.2' : 'localhost'
@@ -26,5 +27,5 @@ class rethinkQueries {
 const now = Date.now()
 const lastMonth = new Date().setMonth(new Date().getMonth() - 1)
 
-
 export default rethinkQueries
+*/

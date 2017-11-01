@@ -71,6 +71,10 @@ function getDate (str, callback) {
  * @return {Array}              Returns array of objects ([type] = value)
  */
 function getFilters (queryFilters, callback) {
+  if (queryFilters === null) {
+    callback(null, null)
+    return
+  }
   queryFilters.shift() // Remove 'filter' part of string
   queryFilters = queryFilters[0].split(',') // Split string with ',' delimter
 
@@ -201,26 +205,25 @@ function handleEventQuery (url, res) {
   * Promise - To parse all filters, stopping API from querying till all
   * parsing is completed, so databse doesn't query using incomplete set
   */
-  const filterPromise = new Promise((resolve, reject) => {
-    if (queryFilters === null) {
-      reject(new Error('ERROR: Error parsing filters'))
-    }
+  var filterPromise = new Promise((resolve, reject) => {
     getFilters(queryFilters, (filters, err) => {
       if (err) {
         res.writeHead(200, { 'Content-Type': 'text/plain' })
         res.write(err + '\n')
         queryFilters = {}
         res.end()
-        reject(err)
+        resolve()
       } else {
         queryFilters = filters
         resolve()
       }
+      reject(new Error('ERROR: Error parsing filters'))
     })
   })
 
   // Test for filterPromise completion, and if successful run database calls
-  filterPromise.then(() => {
+  console.log('pre-promise')
+  filterPromise.then(function () {
     switch (queryType) {
       case 'total':
         // Returns the total count of database results

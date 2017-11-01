@@ -10,7 +10,7 @@
     "node": ">=8.2.1"
   },
   "repository": "https://stash.sds.feit.uts.edu.au/scm/pug/puglift.git",
-  "author": "Alex Dacre <alex@alexdacre.com>, Riaan Van Onselen, Adam Fonfarski, Cattleya Tantri, Liu Tian Long",
+  "author": "Alex Dacre <alex@alexdacre.com>, Riaan Van Onselen, Adam Fonfarski, Cattleya Tantri, Liu Tian Long, Kory Porter",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -33,9 +33,12 @@
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-preset-env": "^1.6.0",
+    "moment": "^2.19.1",
     "mongodb": "^2.2.31",
     "rethinkdb": "^2.3.3",
-    "uws": "^8.14.1"
+    "uuid": "^3.1.0",
+    "uws": "^8.14.1",
+    "winston": "^2.3.1"
   },
   "scripts": {
     "develop": "nodemon src/index.js --exec \"eslint src && babel-node\"",

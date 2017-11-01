@@ -8,17 +8,6 @@ class Routes {
   }
 
   handleRoutes (req, res) {
-    // if (req.url === '/') {
-    //   return res.end(
-    //     Buffer.from(
-    //       `Running Publift Analytics v${pkg.version}${pkg.config.branch === 'master' ? '' : ' from branch ' + pkg.config.branch}`
-    //     )
-    //   )
-    // } else {
-    //   res.statusCode = 200
-    //   return res.end('success')
-    // }
-
     if (req.method === 'POST') {
       let bodyData = ''
       req.on('data', data => { bodyData += ab2str(data) })
@@ -51,17 +40,6 @@ class Routes {
 
     const ab2str = buf => String.fromCharCode.apply(null, new Uint8Array(buf))
   }
-
-  // handleWebsocketRoutes (ws) {
-  //   ws.on('message', message => {
-  //     const event = JSON.parse(message)
-  //     if (Object.keys(response).includes(event.type)) {
-  //       return this.handleEvent(event, response => ws.send(response))
-  //     } else {
-  //       return ws.send(`Unknown request by: ${ws}`)
-  //     }
-  //   })
-  // }
 }
 
 export const PORT = process.env.PORT || 3000

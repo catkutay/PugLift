@@ -1,8 +1,8 @@
 {
   "name": "PubLift",
-  "version": "0.0.4-rc.3",
+  "version": "0.0.4",
   "config": {
-    "branch": "KP-1016-MongoDBnew"
+    "branch": "master"
   },
   "description": "Big data analytics for advertising",
   "main": "src/index.js",

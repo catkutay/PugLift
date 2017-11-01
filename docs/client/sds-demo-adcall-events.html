@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+  googletag.dob = new Date()*1;
+  console.log("[EVENT] PAGE_LOAD at %s, %sms after page load ", new Date()*1, new Date()-googletag.dob);
+</script>
+
+<script>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/57488211/PL_demo/prebid_hrec', [[970, 250], [970, 90], [728, 90], [300, 250]], 'div-gpt-ad-1505953308417-0').addService(googletag.pubads());
+    googletag.defineSlot('/57488211/PL_demo/prebid_mrec', [300, 250], 'div-gpt-ad-1505953308417-1').addService(googletag.pubads());
+    googletag.defineSlot('/57488211/PL_demo/prebid_vrec', [[160, 600], [300, 600], [300, 250]], 'div-gpt-ad-1505953308417-2').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices(
+      console.log("[EVENT] AD_SERVER_REQUEST at %s, %sms after page load ", new Date()*1, new Date()-googletag.dob),
+      console.log("[DATA]", googletag.pubads().getSlots())
+      );
+    googletag.pubads().addEventListener('slotRenderEnded', function(event) {
+      console.log("[EVENT] AD_SERVER_RESPONSE at %s, %sms after page load ", new Date()*1, new Date()-googletag.dob);
+      console.log("[DATA]", event.slot);
+    });
+  });
+</script>
+<body>
+
+<!-- /57488211/PL_demo/prebid_hrec -->
+<div id='div-gpt-ad-1505953308417-0'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1505953308417-0'); });
+</script>
+</div>
+
+<!-- /57488211/PL_demo/prebid_mrec -->
+<div id='div-gpt-ad-1505953308417-1' style='height:250px; width:300px;'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1505953308417-1'); });
+</script>
+</div>
+
+<!-- /57488211/PL_demo/prebid_vrec -->
+<div id='div-gpt-ad-1505953308417-2'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1505953308417-2'); });
+</script>
+</div>
+
+</body>
+</html>

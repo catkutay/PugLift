@@ -12,11 +12,15 @@ class Routes {
       let bodyData = ''
       req.on('data', data => { bodyData += ab2str(data) })
       req.on('end', () => {
-        const event = JSON.parse(bodyData)
-        if (Object.keys(response).includes(req.url.substr(1)) && Object.keys(response).includes(event.type)) {
-          return this.handleEvent(event, response => res.end(response))
+        const event = safeParse(bodyData)
+        if (event === null) {
+          res.end(`Invalid data from: ${req.headers['user-agent']}`)
         } else {
-          return res.end(`Unknown request by: ${req.headers['user-agent']}`)
+          if (Object.keys(response).includes(req.url.substr(1)) && Object.keys(response).includes(event.type)) {
+            return this.handleEvent(event, response => res.end(response))
+          } else {
+            return res.end(`Unknown request by: ${req.headers['user-agent']}`)
+          }
         }
       })
     } else {
@@ -39,6 +43,23 @@ class Routes {
     }
 
     const ab2str = buf => String.fromCharCode.apply(null, new Uint8Array(buf))
+
+    const safeParse = data => {
+      try {
+        return JSON.parse(
+          data
+            // catch invalid keys or potential MongoDB query operators starting with '$' and add 'a' as prefix: '$where' -> 'a$where'; [$where] -> [a$where]; " $where " -> " a$where "
+            .replace(/(['"[][\s]*)(\$[\w]*)([\s]*['"\]])/g, '$1a$2$3')
+            // catch invalid keys containing a dot (.) and replace with a hyphen (-): 'test.key' -> 'test-key'
+            // Note: does not handle multiple scattered dots within one key, e.g. 'an.example.key'
+            .replace(/(['"][\s]*[\w]*)(\.+)([\w]*[\s]*['"]:)/g, '$1-$3')
+            // catch null bytes and replace with string 'none': 'example\u0000' -> 'examplenone'
+            .replace(/\u0000|\\u0000/g, 'none')
+        )
+      } catch (err) {
+        return null
+      }
+    }
   }
 }
 

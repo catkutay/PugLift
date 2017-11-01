@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import WebSocket, { http } from 'uws'
+// import WebSocket, { http } from 'uws'
+import http from 'http'
 import { PORT } from './routes'
 
 const uws = routes => {

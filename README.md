@@ -29,11 +29,15 @@ npm run lint
 
 ## UPLOAD TO GCLOUD
 
-First you need to install the gcloud tool and follow the instructions to initialise it on your machine. Then simply run:
+Before your first deploy you need to [install the gcloud sdk](https://cloud.google.com/sdk/downloads) and follow the instructions to initialise it on your machine. You also need to make sure you have access to the `publift-sds-2017` project on GCloud. 
+
+Then run:
 
 ```
 npm run deploy
 ```
+
+And hit enter when prompted.
 
 ## TEST THE SERVER
 

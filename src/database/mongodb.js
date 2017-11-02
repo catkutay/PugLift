@@ -2,8 +2,9 @@ import { response } from '../server/routes'
 import { MongoClient } from 'mongodb'
 import { logger, profileLogger, enableProfilling } from '../winstonconfig'
 
-const HOST = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? '10.152.0.12' : 'localhost'
-const url = `mongodb://${HOST}:27017/publift`
+const HOST = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? '10.152.0.18' : 'localhost'
+export const url = `mongodb://${HOST}:27017/publift`
+
 const mongo = new MongoClient()
 let conn = null
 

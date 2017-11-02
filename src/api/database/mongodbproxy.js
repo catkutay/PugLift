@@ -1,9 +1,7 @@
-// import { connection } from '../../database/mongodb'
 import { MongoClient } from 'mongodb'
+import { url } from '../../database/mongodb'
 
 // Variables for establishing a connection from the API to the MongoDB
-const HOST = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? '10.152.0.12' : 'localhost'
-const url = `mongodb://${HOST}:27017/publift`
 const mongo = new MongoClient()
 let conn = null
 

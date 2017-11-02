@@ -1,11 +1,11 @@
 {
   "name": "PubLift",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "config": {
     "branch": "master"
   },
   "description": "Big data analytics for advertising",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=8.2.1"
   },

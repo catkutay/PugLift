@@ -9,3 +9,12 @@ dist
 *.iml
 out
 gen
+rethinkdb_data/1eb4dcf8-e17e-4cd7-9183-063db0b7ec81
+rethinkdb_data/37a12df3-8490-47ef-b6d5-0f47ade168c2
+rethinkdb_data/670f2c2e-59ef-4eb5-a6e9-df28a1bede2f
+rethinkdb_data/8c9d2cc9-537d-4a78-9178-bd1891b5f555
+rethinkdb_data/c555a4f4-e478-401c-8fb3-74592387d103
+rethinkdb_data/cd0244f9-3b7a-4bdc-9069-267cac36cb2c
+rethinkdb_data/eeb5484d-8010-4c5a-b0be-d00911ed43bb
+rethinkdb_data/log_file
+rethinkdb_data/metadata

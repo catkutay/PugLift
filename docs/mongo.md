@@ -27,10 +27,10 @@ Once the *mongod* instance has been started, you can now open a *new* terminal a
 --------
 
 Example commands:
-* `show dbs;` - shows all available databases
-* `use x;` - uses database called x (change this to the database you wish to query)
-- `show collections;` - shows all collections(tables) available.
-- `db.y.find();` - shows some documents that have been inserted into the collection y (change y to the collection you wish to query)
++ `show dbs;` - shows all available databases
++ `use x;` - uses database called x (change this to the database you wish to query)
++ `show collections;` - shows all collections(tables) available.
++ `db.y.find();` - shows some documents that have been inserted into the collection y (change y to the collection you wish to query)
 
 ## How the database is utilised
 

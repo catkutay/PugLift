@@ -29,7 +29,7 @@ Gatling automatically generates HTML reports with graphs for completed simulatio
 ## How to run it
 
 > **NOTE**
-> See *README.md* for instructions on running Gatling in the Cloud.
+> See *README.md* in the `puglift-gatling-test` repository for instructions on testing gatling against GCloud.
 
 ### On Windows machines
 
@@ -41,6 +41,8 @@ Gatling automatically generates HTML reports with graphs for completed simulatio
 6. Let the simulation run its course. A status report is logged on the window every 5 seconds. The simulation will terminate on its own after a set amount of time (see the *Varying users over time* section below), or use `Ctrl-C` to terminate it manually.
 
 ### On non-Windows machines
+
+Exactly the same as on Windows except the run command is `./bin/gatling/sh`
 
 ## How to modify it
 

@@ -2,7 +2,7 @@ import moment from 'moment'
 import uuidv5 from 'uuid/v5'
 import * as pkg from '../../package.json'
 import { profileLogger, enableProfiling, consoleloggingLevel, fileLoggingLevel, setProfiling } from '../winstonconfig'
-import handleAPIQuery from '../../src/api/controller/apicontroller'
+import handleAPIQuery from '../api/controller/apicontroller'
 
 class Routes {
   constructor (handleEvent) {
